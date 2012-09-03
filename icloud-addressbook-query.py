@@ -31,8 +31,13 @@ def output(results):
     if results:
         print " ".join([str(len(results)), "matching addresses..."])
         for row in results:
-            # Use the organisation as the name if there is one
-            fn = row[3] or " ".join([row[1], row[2]])
+            # I track people's organizations along with their name, so I want their name first
+            if row[1]:
+                fn = " ".join([row[1], row[2]])
+            elif row[3]:
+                fn = row[3]
+            else:
+                fn = "unnamed contact"
             print "\t".join([row[0], fn])
         sys.exit(0)
     else:
